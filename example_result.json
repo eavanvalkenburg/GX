@@ -1,0 +1,224 @@
+{
+    "run_id": {
+      "run_time": "2023-01-16T13:01:16.223538+00:00",
+      "run_name": null
+    },
+    "run_results": {
+      "ValidationResultIdentifier::taxi/demo/__none__/20230116T130116.223538Z/7d97028b3a08100991c74802b25d7c2f": {
+        "validation_result": {
+          "results": [
+            {
+              "result": {
+                "observed_value": 10000
+              },
+              "meta": {},
+              "exception_info": {
+                "raised_exception": false,
+                "exception_traceback": null,
+                "exception_message": null
+              },
+              "expectation_config": {
+                "meta": {},
+                "kwargs": {
+                  "max_value": 12000,
+                  "min_value": 8000,
+                  "batch_id": "7d97028b3a08100991c74802b25d7c2f"
+                },
+                "expectation_type": "expect_table_row_count_to_be_between"
+              },
+              "success": true
+            },
+            {
+              "result": {
+                "observed_value": [
+                  "vendor_id",
+                  "pickup_datetime",
+                  "dropoff_datetime",
+                  "passenger_count",
+                  "trip_distance",
+                  "rate_code_id",
+                  "store_and_fwd_flag",
+                  "pickup_location_id",
+                  "dropoff_location_id",
+                  "payment_type",
+                  "fare_amount",
+                  "extra",
+                  "mta_tax",
+                  "tip_amount",
+                  "tolls_amount",
+                  "improvement_surcharge",
+                  "total_amount",
+                  "congestion_surcharge"
+                ]
+              },
+              "meta": {},
+              "exception_info": {
+                "raised_exception": false,
+                "exception_traceback": null,
+                "exception_message": null
+              },
+              "expectation_config": {
+                "meta": {},
+                "kwargs": {
+                  "column_set": [
+                    "fare_amount",
+                    "tolls_amount",
+                    "congestion_surcharge",
+                    "pickup_datetime",
+                    "vendor_id",
+                    "mta_tax",
+                    "trip_distance",
+                    "total_amount",
+                    "passenger_count",
+                    "dropoff_datetime",
+                    "pickup_location_id",
+                    "tip_amount",
+                    "extra",
+                    "rate_code_id",
+                    "dropoff_location_id",
+                    "payment_type",
+                    "improvement_surcharge",
+                    "store_and_fwd_flag"
+                  ],
+                  "batch_id": "7d97028b3a08100991c74802b25d7c2f"
+                },
+                "expectation_type": "expect_table_columns_to_match_set"
+              },
+              "success": true
+            },
+            {
+              "result": {
+                "element_count": 10000,
+                "unexpected_count": 0,
+                "unexpected_percent": 0.0,
+                "partial_unexpected_list": [],
+                "missing_count": 0,
+                "missing_percent": 0.0,
+                "unexpected_percent_total": 0.0,
+                "unexpected_percent_nonmissing": 0.0,
+                "partial_unexpected_index_list": [],
+                "partial_unexpected_counts": []
+              },
+              "meta": {},
+              "exception_info": {
+                "raised_exception": false,
+                "exception_traceback": null,
+                "exception_message": null
+              },
+              "expectation_config": {
+                "meta": {},
+                "kwargs": {
+                  "column": "passenger_count",
+                  "max_value": 6,
+                  "min_value": 0,
+                  "batch_id": "7d97028b3a08100991c74802b25d7c2f"
+                },
+                "expectation_type": "expect_column_values_to_be_between"
+              },
+              "success": true
+            }
+          ],
+          "meta": {
+            "great_expectations_version": "0.15.43",
+            "expectation_suite_name": "taxi.demo",
+            "run_id": {
+              "run_time": "2023-01-16T13:01:16.223538+00:00",
+              "run_name": null
+            },
+            "batch_spec": {
+              "data_asset_name": "taxi_data",
+              "batch_data": "PandasDataFrame"
+            },
+            "batch_markers": {
+              "ge_load_time": "20230116T130116.250280Z",
+              "pandas_data_fingerprint": "c4f929e6d4fab001fedc9e075bf4b612"
+            },
+            "active_batch_definition": {
+              "datasource_name": "taxi_data",
+              "data_connector_name": "default_runtime_data_connector_name",
+              "data_asset_name": "taxi_data",
+              "batch_identifiers": {
+                "default_identifier_name": ""
+              }
+            },
+            "validation_time": "20230116T130116.294185Z",
+            "checkpoint_name": "my_checkpoint",
+            "validation_id": null,
+            "checkpoint_id": null
+          },
+          "evaluation_parameters": {},
+          "statistics": {
+            "evaluated_expectations": 3,
+            "successful_expectations": 3,
+            "unsuccessful_expectations": 0,
+            "success_percent": 100.0
+          },
+          "success": true
+        },
+        "actions_results": {
+          "store_validation_result": {
+            "class": "StoreValidationResultAction"
+          },
+          "store_evaluation_params": {
+            "class": "StoreEvaluationParametersAction"
+          },
+          "update_data_docs": {
+            "local_site": "file:///workspaces/GE/great_expectations/uncommitted/data_docs/local_site/validations/taxi/demo/__none__/20230116T130116.223538Z/7d97028b3a08100991c74802b25d7c2f.html",
+            "class": "UpdateDataDocsAction"
+          }
+        }
+      }
+    },
+    "checkpoint_config": {
+      "site_names": null,
+      "ge_cloud_id": null,
+      "module_name": "great_expectations.checkpoint",
+      "template_name": null,
+      "notify_with": null,
+      "run_name_template": null,
+      "default_validation_id": null,
+      "class_name": "Checkpoint",
+      "expectation_suite_name": null,
+      "profilers": [],
+      "runtime_configuration": {},
+      "name": "my_checkpoint",
+      "action_list": [
+        {
+          "name": "store_validation_result",
+          "action": {
+            "class_name": "StoreValidationResultAction"
+          }
+        },
+        {
+          "name": "store_evaluation_params",
+          "action": {
+            "class_name": "StoreEvaluationParametersAction"
+          }
+        },
+        {
+          "name": "update_data_docs",
+          "action": {
+            "class_name": "UpdateDataDocsAction",
+            "site_names": []
+          }
+        }
+      ],
+      "evaluation_parameters": {},
+      "batch_request": {},
+      "notify_on": null,
+      "validations": [
+        {
+          "expectation_suite_name": "taxi.demo",
+          "batch_request": {
+            "datasource_name": "taxi_data",
+            "data_connector_name": "default_runtime_data_connector_name",
+            "data_asset_name": "taxi_data"
+          }
+        }
+      ],
+      "expectation_suite_ge_cloud_id": null,
+      "slack_webhook": null,
+      "config_version": 1.0
+    },
+    "success": true
+  }

@@ -1,0 +1,52 @@
+{
+  "data_asset_type": null,
+  "expectation_suite_name": "taxi",
+  "expectations": [
+    {
+      "expectation_type": "expect_table_row_count_to_be_between",
+      "kwargs": {
+        "max_value": 12000,
+        "min_value": 8000
+      },
+      "meta": {}
+    },
+    {
+      "expectation_type": "expect_table_columns_to_match_set",
+      "kwargs": {
+        "column_set": [
+          "fare_amount",
+          "tolls_amount",
+          "congestion_surcharge",
+          "pickup_datetime",
+          "vendor_id",
+          "mta_tax",
+          "trip_distance",
+          "total_amount",
+          "passenger_count",
+          "dropoff_datetime",
+          "pickup_location_id",
+          "tip_amount",
+          "extra",
+          "rate_code_id",
+          "dropoff_location_id",
+          "payment_type",
+          "improvement_surcharge",
+          "store_and_fwd_flag"
+        ]
+      },
+      "meta": {}
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_between",
+      "kwargs": {
+        "column": "passenger_count",
+        "max_value": 6,
+        "min_value": 0
+      },
+      "meta": {}
+    }
+  ],
+  "meta": {
+    "great_expectations_version": "0.15.41"
+  }
+}
