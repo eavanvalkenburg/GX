@@ -29,7 +29,7 @@ The whole `great_expectations` folder should be uploaded to the config file shar
 
 In the `utils.py` file a simple mapping is created that matches the file name to the checkpoint name. This should be adapted to your needs and potentially should be moved into a seperate file in the config share that gets loaded dynamically so that the function does not have to be redeployed.
 
-The paths for the triggers and outputs should also be updated to match your needs.
+The paths for the triggers and outputs should also be updated to match your needs. The outputs are not strictly necessary, since the data docs are also updated in the website, but they might be usefull for other purposes, the contents of the output is the json of the checkpoint run result.
 
 The main functions app is a python v2 function and has two functions:
 - gx_validate_blob: triggers off new files in the `data` container of the `DATA_STORAGE` environment variable (connection string), it outputs to the same storage with the result json.
