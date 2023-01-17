@@ -136,3 +136,5 @@ __azurite_db*__.json
 .python_packages
 
 azure.sh
+
+main.parameters.json

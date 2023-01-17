@@ -14,12 +14,14 @@ It uses:
 
 ## Setup
 
-In Azure create the function app, based on Linux (otherwise the mount doesn't work) and either use the storage account that get's deployed as part of the function app or a seperate one and create the following containers and files shares:
+In Azure create the Azure Function app, based on Linux (otherwise the mount doesn't work) and either use the storage account that get's deployed as part of the function app or a seperate one and create the following containers and files shares:
 1. `data` container
 2. `output` container
 3. `config` file share
 
 Finally, turn on the static website feature, which creates the `$web` folder and set the index document name to `index.html`.
+
+Deployment can also be done by using the `main.bicep` in the *bicep* folder. After that only the function app and the config files still have to be deployed.
 
 ### Great Expectations config
 In the `great_expectations` folder you can find the Great Expectations project. The `great_expectations` folder is the root folder for the Great Expectations project, when doing local development for the function use the `ROOT_FOLDER_PATH` environment variable to point to this folder, in the deployed function mount a file share to your function, and upload the contents of that folder there, using [these steps](https://learn.microsoft.com/en-us/azure/azure-functions/scripts/functions-cli-mount-files-storage-linux). After this, any time the function is invoked online it will use the config from the file share and therefore that can then by updated by your CI/CD pipeline, without having to change the function. 
