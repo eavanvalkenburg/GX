@@ -1,10 +1,10 @@
-param site_name string = 'edvangetest'
-param site_storage_name string = 'edvangeweb'
-param serverfarms_name string = 'ASP-edvangetest'
-param appinsights_name string = 'edvangetestappins'
-param appinsights_workspace_name string = 'workspace-edvangetestappins'
-param data_storage_name string = 'edvangestorage'
-param location string = 'westeurope'
+param site_name string
+param site_storage_name string
+param serverfarms_name string
+param appinsights_name string
+param appinsights_workspace_name string
+param data_storage_name string
+param location string = resourceGroup().location
 
 resource data_storage 'Microsoft.Storage/storageAccounts@2022-05-01' = {
   name: data_storage_name
