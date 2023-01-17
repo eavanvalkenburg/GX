@@ -19,11 +19,16 @@ def rewrite_blob_url(url: str) -> str:
     return url.replace("blob.core.windows.net/", URL).replace("$web/", "")
 
 
-def get_docs_site_urls(context: BaseDataContext, result: CheckpointResult) -> str:
+def get_docs_site_urls(
+    context: BaseDataContext, result: CheckpointResult | None = None
+) -> str:
     """Get docs site urls."""
-    docs_site_urls_list = context.get_docs_sites_urls(
-        resource_identifier=list(result.run_results.keys())[0]
-    )
+    if result:
+        docs_site_urls_list = context.get_docs_sites_urls(
+            resource_identifier=list(result.run_results.keys())[0]
+        )
+    else:
+        docs_site_urls_list = context.get_docs_sites_urls()
     return rewrite_blob_url(docs_site_urls_list[0]["site_url"])
 
 

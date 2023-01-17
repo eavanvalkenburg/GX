@@ -4,5 +4,6 @@
 
 azure-functions
 azure-storage-blob
+azure-identity
 great-expectations
 pandas

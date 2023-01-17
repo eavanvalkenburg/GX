@@ -76,4 +76,5 @@ async def rebuild_docs(req: func.HttpRequest) -> func.HttpResponse:
     logging.debug("Request body: %s", req.get_body())
     context = DataContext(context_root_dir=ROOT_FOLDER_PATH)
     context.build_data_docs()
-    return func.HttpResponse("Docs (re)built")
+    site = get_docs_site_urls(context)
+    return func.HttpResponse(f"Docs (re)built: {site}")
