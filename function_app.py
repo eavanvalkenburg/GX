@@ -1,14 +1,13 @@
-"""Main entrypoint that calls blueprints."""
+"""Main entrypoint of the Function."""
 from __future__ import annotations
 
 import logging
-from io import BytesIO
+
 import azure.functions as func
-import pandas as pd
 
-from great_expectations.data_context import DataContext
-
-from utils import ROOT_FOLDER_PATH, get_docs_site_urls, get_checkpoint_from_filename
+from src.data import get_data_frame, FileFormat
+from src.gx import run_checkpoint, get_context, get_docs_site_urls
+from src.utils import get_checkpoint_from_filename, create_event_grid_event
 
 app = func.FunctionApp()
 
@@ -26,41 +25,28 @@ app = func.FunctionApp()
     connection="DATA_STORAGE",
     data_type=func.DataType.STRING,
 )
-async def process_file(data: func.InputStream, output: func.Out[str]):
+async def gx_validate_blob(data: func.InputStream, output: func.Out[str]):
     """Process a file."""
     logging.info("Processing file: %s", data.name)
     assert data.name
-    run_name = data.name.replace("/", "-")
-    context = DataContext(context_root_dir=ROOT_FOLDER_PATH)
 
+    # set context
+    context = get_context(data.name)
+
+    # get checkpoint name
     checkpoint_name = get_checkpoint_from_filename(data.name)
     if not checkpoint_name:
         logging.warning("No checkpoint found for file: %s", data.name)
         return
 
-    data_batch = pd.read_csv(BytesIO(data.read()))
-    result = context.run_checkpoint(
-        checkpoint_name=checkpoint_name,
-        batch_request={
-            "runtime_parameters": {"batch_data": data_batch},
-            "batch_identifiers": {"default_identifier_name": ""},
-        },
-        run_name=run_name,
-    )
-    docs_url = get_docs_site_urls(context, result)
-    if result["success"]:
-        logging.info("Success: %s", result["success"])
-    else:
-        logging.warning("Result: %s", result)
+    # get data
+    data_frame = await get_data_frame(data.read(), file_format=FileFormat.CSV)
 
-    event_grid_event = {
-        "file": data.name,
-        "success": result["success"],
-        "url": docs_url,
-        # "full_result": result.to_json_dict(),
-    }
-    logging.info("Sample event grid event: %s", event_grid_event)
+    # do the actual validation
+    result, docs_url = run_checkpoint(context, data_frame, checkpoint_name)
 
+    # setup outputs
+    create_event_grid_event(data.name, result, docs_url)
     output.set(str(result.to_json_dict()))
 
 
@@ -70,11 +56,11 @@ async def process_file(data: func.InputStream, output: func.Out[str]):
     methods=[func.HttpMethod.GET],
     route="build_docs",
 )
-async def rebuild_docs(req: func.HttpRequest) -> func.HttpResponse:
+async def gx_build_docs(req: func.HttpRequest) -> func.HttpResponse:
     """Rebuild docs."""
-    logging.info("Rebuilding docs")
+    logging.info("(Re)building docs")
     logging.debug("Request body: %s", req.get_body())
-    context = DataContext(context_root_dir=ROOT_FOLDER_PATH)
+    context = get_context()
     context.build_data_docs()
     site = get_docs_site_urls(context)
     return func.HttpResponse(f"Docs (re)built: {site}")
