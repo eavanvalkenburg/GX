@@ -6,8 +6,6 @@ import os
 
 from great_expectations.checkpoint.types import CheckpointResult
 
-ROOT_FOLDER_PATH = os.getenv("ROOT_FOLDER_PATH", "great_expectations")
-URL = os.getenv("STATIC_WEB_URL_PREFIX", "z6.web")
 
 CHECKPOINT_LOOKUP = {
     "yellow_tripdata": "taxi_checkpoint",

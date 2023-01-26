@@ -12,9 +12,11 @@ from utils import ROOT_FOLDER_PATH, rewrite_blob_url
 
 
 def run_checkpoint(
-    context: BaseDataContext, data: DataFrame, checkpoint_name: str
-) -> tuple[CheckpointResult, str]:
+    context: BaseDataContext, data: DataFrame, checkpoint_name: str | None
+) -> tuple[CheckpointResult | None, str | None]:
     """Create the dataframe and run the checkpoint"""
+    if checkpoint_name is None:
+        return None, None
     result = context.run_checkpoint(
         checkpoint_name=checkpoint_name,
         batch_request={
@@ -23,10 +25,9 @@ def run_checkpoint(
         },
     )
     docs_url = get_docs_site_urls(context, result)
-    if result["success"]:
-        logging.info("Success: %s", result["success"])
-    else:
-        logging.warning("Result: %s", result)
+    logging.log(
+        logging.INFO if result["success"] else logging.WARNING, "Result: %s", result
+    )
     return result, docs_url
 
 

@@ -1,0 +1,6 @@
+{
+    "folder_path": "VFSA",
+    "checkpoint_name": "test",
+    "entity_metadata_file": "metadata/VFSA_entity_metadata_2021-06-06T11%3A20%3A12.json",
+    "process_metadata_file": "metadata/VFSA_process_metadata_2021-06-06T11%3A20%3A12.json"
+}
