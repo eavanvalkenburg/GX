@@ -39,4 +39,3 @@ async def get_data_from_blob_folder(
     return pd.read_parquet(
         f"abfs://{path}", storage_options={"connection_string": connection_string}
     )
-
